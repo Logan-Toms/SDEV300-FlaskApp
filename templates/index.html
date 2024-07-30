@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        {% if 'username' in session %}
+            <h1>Welcome {{ session['username'] }} to the Recipe Website</h1>
+            <!-- Link available for user to logout of session -->
+            <a href="{{ url_for('logout') }}" class="text-button">Logout</a>
+        {% else %}
+            <h1>Welcome to the Recipe Website</h1>
+            <!-- Link available for user to login -->
+            <a href="{{ url_for('login') }}" class="text-button">Login</a>
+        {% endif %}
+    </header>
+    
+    <!-- About Section -->
+    <section class="about">
+        <h2>About Our Recipes</h2>
+        <p>Discover a variety of delicious recipes that cater to all tastes and preferences!</p>
+    </section>
+    
+    <!-- Recipe Section -->
+    <section class="recipes">
+        <h2>Featured (Member Only) Recipes!</h2>
+        <table>
+            <!-- Table Header -->
+            <tr>
+                <th>Recipe Title</th>
+                <th>Total Time</th>
+                <th>Difficulty</th>
+            </tr>
+            <!-- Dynamic Rows -->
+            {% for recipe in recipes %}
+                <tr>
+                    <td><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></td>
+                    <td>{{ recipe.TotalTime }}</td>
+                    <td>{{ recipe.Difficulty }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+
+    <!-- External Links Section -->
+    <section class="external-links">
+        <h2>Explore Free Resources</h2>
+        <ul class="list">
+            <li><a href="https://www.foodnetwork.com" target="Food Network">Food Network</a></li>
+            <li><a href="https://www.allrecipes.com" target="All Recipies">AllRecipes</a></li>
+            <li><a href="https://www.bonappetit.com" target="Bon Appétit">Bon Appétit</a></li>
+        </ul>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community">
+        <h3>Join Our Cooking Community</h3>
+        <p>Get tips, share recipes, and connect with fellow cooking enthusiasts.</p>
+    </section>
+
+    <footer>
+        <p>Current time: {{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+    </footer>
+</body>
+</html>

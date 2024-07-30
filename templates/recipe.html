@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome {{ session['username'] }} to the Recipe Website</h1>
+        <!-- Link available for user to logout of session -->
+        <a href="{{ url_for('logout') }}" class="text-button">Logout</a>
+    </header>
+
+    <!-- Recipe title -->
+    <section class="recipe title">
+        <h1>{{ recipe.title }}</h1>
+        <img src="{{ recipe.image }}" alt="Recipe Image" width="300">
+    </section>
+
+    <!-- Ingredients list -->
+    <section class="recipe ingredients">
+        <h2>Ingredients:</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Cooking steps -->
+    <section class="recipe steps">
+        <h2>Steps:</h2>
+        <ol>
+            {% for step in recipe.steps %}
+                <li>{{ step }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <!-- Link to return to the homepage -->
+    <a href="/" class="text-button">Back to Recipes</a>
+
+    <!-- Footer section -->
+    <footer>
+        <!-- Display current date and time -->
+        <p>Current time: {{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Registration Page -->
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section>
+        <h2>Register</h2>
+
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Form to register a new user -->
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="form-group">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" required><br>
+            </div>
+            
+            <!-- Password must contain at least one number and one uppercase and lowercase letter, and at least 12 or more characters -->
+            <div class="form-group">
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required 
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{12,}" 
+                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 12 or more characters"><br>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+        <!-- Link to login page -->
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+    </section>
+</body>
+</html>
